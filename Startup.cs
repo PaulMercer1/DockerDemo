@@ -21,7 +21,9 @@ namespace DotNetCoreSqlDb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connString = Configuration.GetConnectionString("MyDbConnection");
+            var sqlsrv = Configuration.GetConnectionString("SqlHost");
+            var connString = $"Server={sqlsrv};Database=ToDo;User Id=sa;Password=MyP@ssw0rd#;MultipleActiveResultSets=true";
+
             Debug.WriteLine($"****************************** {connString} ***********************************");
 
             services.AddControllersWithViews();
