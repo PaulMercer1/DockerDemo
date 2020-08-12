@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using DotNetCoreSqlDb.Models;
 using System.Diagnostics;
+using Polly;
+using System;
 
 namespace DotNetCoreSqlDb
 {
@@ -22,7 +24,7 @@ namespace DotNetCoreSqlDb
         public void ConfigureServices(IServiceCollection services)
         {
             var sqlsrv = Configuration.GetConnectionString("SqlHost");
-            var connString = $"Server={sqlsrv};Database=ToDo;User Id=sa;Password=MyP@ssw0rd#;MultipleActiveResultSets=true";
+            var connString = $"Server=db;Database=ToDo;User Id=sa;Password=MyP@ssw0rd#;MultipleActiveResultSets=true";
 
             Debug.WriteLine($"****************************** {connString} ***********************************");
 
@@ -43,7 +45,16 @@ namespace DotNetCoreSqlDb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            UpdateDatabase(app);
+            var pol = Policy
+                .Handle<Exception>()
+                .WaitAndRetry(new[]
+                        {
+                        TimeSpan.FromSeconds(5),
+                        TimeSpan.FromSeconds(10),
+                        TimeSpan.FromSeconds(20)
+                });
+
+            pol.Execute(()=> UpdateDatabase(app));
 
             if (env.IsDevelopment())
             {
