@@ -29,8 +29,8 @@ namespace DotNetCoreSqlDb.Controllers
                 return NotFound();
             }
 
-            var todo = await _context.Todo
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var todo = await _context.Todo.FirstOrDefaultAsync(m => m.ID == id);
+
             if (todo == null)
             {
                 return NotFound();
@@ -120,8 +120,8 @@ namespace DotNetCoreSqlDb.Controllers
                 return NotFound();
             }
 
-            var todo = await _context.Todo
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var todo = await _context.Todo.FirstOrDefaultAsync(m => m.ID == id);
+
             if (todo == null)
             {
                 return NotFound();

@@ -1,0 +1,7 @@
+run SQL:
+
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Pa$$w0rd1234' -p 1433:1433 -d mcr.microsoft.com/mssql/server
+
+
+environment for app: 
+-e ConnectionStrings:MyDbConnection=Server=localhost:1433;Database=Todo;userid=sa;pwd=Pa$$w0rd1234;;MultipleActiveResultSets=true
