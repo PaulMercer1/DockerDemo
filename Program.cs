@@ -8,12 +8,12 @@ namespace DotNetCoreSqlDb
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+                CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureLogging(logging => { logging.AddDebug(); })
+                .ConfigureLogging(logging => { logging.AddDebug(); logging.AddConsole(); })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

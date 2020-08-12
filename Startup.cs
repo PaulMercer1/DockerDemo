@@ -11,7 +11,7 @@ using System;
 
 namespace DotNetCoreSqlDb
 {
-    public class Startup
+    public class Startup 
     {
         public Startup(IConfiguration configuration)
         {
@@ -24,8 +24,8 @@ namespace DotNetCoreSqlDb
         public void ConfigureServices(IServiceCollection services)
         {
             var sqlsrv = Configuration.GetConnectionString("SqlHost");
-            var connString = $"Server=db;Database=ToDo;User Id=sa;Password=MyP@ssw0rd#;MultipleActiveResultSets=true";
-
+            var connString = $"Server={sqlsrv};Database=ToDo;User Id=sa;Password=MyP@ssw0rd#;MultipleActiveResultSets=true";
+          
             Debug.WriteLine($"****************************** {connString} ***********************************");
 
             services.AddControllersWithViews();
