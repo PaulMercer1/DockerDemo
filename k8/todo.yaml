@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoapp
+  template:
+    metadata:
+      labels:
+        app: todoapp
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: todoapp
+        image: paulmercer/dotnetcoresqldb      
+        ports:
+        - containerPort: 80
+        env:
+        - name: "ConnectionStrings__sqlhost"
+          value: mssql-deployment
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoapp
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: todoapp

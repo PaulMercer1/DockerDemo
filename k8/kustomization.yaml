@@ -1,0 +1,5 @@
+resources:
+  - storage.yaml
+  - sql.yaml
+  - todo.yaml
+  
