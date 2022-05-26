@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DotNetCoreSqlDb.Models;
+using System;
 
 namespace DotNetCoreSqlDb.Controllers;
 
@@ -42,12 +43,10 @@ public class TodosController : Controller
     // GET: Todos/Create
     public IActionResult Create()
     {
-        return View();
+        return View(new Todo { CreatedDate = DateTime.Now });
     }
 
     // POST: Todos/Create
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("ID,Description,CreatedDate")] Todo todo)
@@ -78,8 +77,6 @@ public class TodosController : Controller
     }
 
     // POST: Todos/Edit/5
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("ID,Description,CreatedDate")] Todo todo)
