@@ -13,7 +13,7 @@ spec:
         app: todoapp
     spec:
       nodeSelector:
-        "beta.kubernetes.io/os": linux
+        "kubernetes.io/os": linux
       containers:
       - name: todoapp
         image: paulmercer/dotnetcoresqldb      

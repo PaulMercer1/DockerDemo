@@ -12,7 +12,7 @@ apiVersion: v1
 metadata:
   name: mssql-data
   annotations:
-    volume.beta.kubernetes.io/storage-class: azure-disk
+    volume.kubernetes.io/storage-class: azure-disk
 spec:
   accessModes:
   - ReadWriteOnce
