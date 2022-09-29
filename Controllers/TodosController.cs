@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using DotNetCoreSqlDb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DotNetCoreSqlDb.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace DotNetCoreSqlDb.Controllers;
 
@@ -95,7 +94,8 @@ public class TodosController : Controller
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TodoExists(todo.ID))
+                var exists = await TodoExistsAsync(todo.ID);
+                if (!exists)
                 {
                     return NotFound();
                 }
@@ -138,8 +138,8 @@ public class TodosController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    private bool TodoExists(int id)
+    private async Task<bool> TodoExistsAsync(int id)
     {
-        return _context.Todo.Any(e => e.ID == id);
+        return await _context.Todo.AnyAsync(e => e.ID == id);
     }
 }

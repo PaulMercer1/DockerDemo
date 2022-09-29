@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using DotNetCoreSqlDb.Models;
 using Microsoft.AspNetCore.Mvc;
-using DotNetCoreSqlDb.Models;
+using System.Diagnostics;
 
 namespace DotNetCoreSqlDb.Controllers;
 
