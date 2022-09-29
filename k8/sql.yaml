@@ -18,6 +18,13 @@ spec:
         image: mcr.microsoft.com/mssql/server:2017-latest
         ports:
         - containerPort: 1433
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 200m
+            memory: 256Mi
         env:
         - name: MSSQL_PID
           value: "Developer"
